@@ -1,0 +1,50 @@
+<div class "row">
+  <div id="profile-cover-container">
+    <div id='cover_container'>
+      <div id='info_box'>
+        <div id="profile_img">
+          <%=image_tag @user.profile_pic.url, class: "avatar_img", height: '85px', width: "83px" %>
+        </div>
+        <div id="info-box">
+          <div id="info-name"><b><%=@user.full_name%></b></div>
+          <div id="info-content">
+            <div style="float:right">
+              
+              <%= form_for @user, :html => { :multipart => true } do |f| %>
+                <%= f.file_field :profile_pic, class: "filestyle profile_pic", 'data-input'=>"false", "data-size"=> "sm", "data-buttonText"=> "", "data-iconName" => "fa fa-camera-retro fa-2x"%>
+                <%= f.submit "Update", class: "btn btn-primary btn-sm" %>
+              <% end %>
+              
+            </div>
+            <div id="info-photos">
+              <div>Photos</div>
+              <div><b>17</b></div>
+            </div>
+            <div id="info-friends">
+              <div>Friends</div>
+              <div><b><%= @user.friends.count %></b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="container-content" style="background-color: #FCFCFC;">
+      <div class="row">
+        <%= form_for [@user, Post.new], :html => { :multipart => true }, remote: true do |f| %>
+          <%= f.text_area :message, placeholder: 'Put your thought here', class: 'post-message auto-grow', 'data-no-turbolink' => true %>
+          
+          <div class="col-md-6 top-space">
+            <%= f.file_field :image, class: "filestyle profile_pic", 'data-input'=>"false", "data-size"=> "sm", "data-buttonText"=> "", "data-iconName" => "fa fa-camera-retro fa-2x"%>
+          </div>
+          <div class="top-space col-md-6"> <%= f.submit "Post", class: 'btn btn-primary pull-right'  %> </div>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row top-space" >
+<%= render :partial => "/shared/feeds", :locals=>{feeds: @posts} %>    
+</div>
+    

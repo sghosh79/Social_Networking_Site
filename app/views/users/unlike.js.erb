@@ -1,0 +1,3 @@
+$("#like-<%= @unlike_to %>").html("<%= escape_javascript(link_to 'like', like_path(type: 'Post', feed_id: @unlike_to), class: 'font-small', remote: true, method: :post )%>")
+$("#like-<%= @unlike_to %>-count").text(parseInt($("#like-<%= @unlike_to %>-count").text()) - 1 )
+

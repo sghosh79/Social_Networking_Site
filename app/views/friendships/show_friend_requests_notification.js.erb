@@ -1,0 +1,7 @@
+<% @pending_requests.each do |pending_request| %>
+  var html = "<%= escape_javascript(render(:partial=> 'friendrequest_notification', :locals => {:sender=> pending_request.user,
+  :created_at => pending_request.created_at, :add_class => 'ajax_noti'})) %>";
+  $(".notification-box").prepend(html);
+<% end %>
+
+$(".loader").hide();

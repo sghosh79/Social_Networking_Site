@@ -1,0 +1,52 @@
+<div class="navbar-fixed-bottom" id='chat-window', style="left:none;">
+  <div class="container" style="width: 350px; float: right;">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-primary">
+          <div class="panel-heading chat-reciever-user-name">
+            <i class="fa fa-comment"></i>
+            <span id='message-reciever-name'> </span>
+            <div class="btn-group pull-right">
+              <button type="button" class="btn btn-default btn-xs dropdown-toggle chat-window-option" data-toggle="dropdown">
+                <i class="fa fa-angle-down"></i>
+              </button>
+              <button type="button" class="btn btn-default btn-xs chat-window-close">
+                <i class="fa fa-times"></i>
+              </button>
+               <!--  <ul class="dropdown-menu slidedown">
+                    <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-refresh">
+                    </span>Refresh</a></li>
+                    <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-ok-sign">
+                    </span>Available</a></li>
+                    <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-remove">
+                    </span>Busy</a></li>
+                    <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-time"></span>
+                        Away</a></li>
+                    <li class="divider"></li>
+                    <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-off"></span>
+                        Sign Out</a></li>
+                </ul> -->
+            </div>
+          </div>
+          <div class="panel-body" style="overflow:auto;">
+            <ul class="chat-history"></ul>
+            <ul class="chat"></ul>
+          </div>
+
+          <%= form_for Message.new, :remote => true do |f| %>
+            <div class="panel-footer">
+              <div class="input-group">
+                <%= f.text_field :content, id: "btn-input", class: "form-control input-sm enter-chat-box", placeholder: "Type your message here...", autocomplete: 'off', required: true %>
+                <%= hidden_field_tag 'reciever_id' %>
+                <span class="input-group-btn">
+                  <%= f.submit "Send", class: "btn btn-warning btn-sm", id: "btn-chat" %>
+                </span>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

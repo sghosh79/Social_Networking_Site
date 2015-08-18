@@ -1,0 +1,6 @@
+<% if @comment.valid? %>
+  $("#comment-<%= @comment.post.id %>-message").append("<%= escape_javascript render(partial: 'shared/comment', locals: {comment: @comment}) %>");
+  $("#comment-<%= @comment.post.id %>-message").parent().find('form textarea').val("")
+<% else %>
+  alert("error")
+<% end %>

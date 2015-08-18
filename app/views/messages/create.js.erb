@@ -1,0 +1,9 @@
+<% publish_to "/messages/new-#{current_user.id rescue nil}"  do %>
+  $("ul.chat").append("<%= escape_javascript render(partial: 'message_from', locals: {message: @message}) %>");
+<% end %>
+
+<% publish_to "/messages/new-#{@message_to.id}" do %>
+  $("ul.chat").append("<%= escape_javascript render(partial: 'message_to', locals: {message: @message}) %>");
+<% end %>
+
+$("#new_message")[0].reset();

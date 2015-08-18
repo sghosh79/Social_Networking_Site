@@ -1,0 +1,106 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    <%= link_to "Connecting People", root_path, class: 'navbar-brand' %>
+  </div>
+  <!-- Top Menu Items -->
+  <ul class="nav navbar-right top-nav">
+    <li class="dropdown">
+      <%= link_to show_friend_requests_notification_friendships_path, class: "dropdown-toggle notification", "data-toggle"=>"dropdown", id: "friend_requests", remote: true do %>
+        <i class="fa fa-users"></i> <b class="caret"></b>
+      <% end %>
+
+      <ul class="dropdown-menu message-dropdown notification-box">
+          <div class="loader text-center"><i class="fa fa-refresh fa-spin"></i></div>
+          <li class="message-footer">
+            <%= link_to "All Friend", friendships_path %> 
+          </li>
+      </ul>
+  </li>
+  <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
+      <ul class="dropdown-menu alert-dropdown">
+          <li>
+              <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
+          </li>
+          <li>
+              <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
+          </li>
+          <li>
+              <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
+          </li>
+          <li>
+              <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
+          </li>
+          <li>
+              <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
+          </li>
+          <li>
+              <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
+          </li>
+          <li class="divider"></li>
+          <li>
+              <a href="#">View All</a>
+          </li>
+      </ul>
+  </li>
+  <% if user_signed_in? %>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%= current_user.full_name %> <b class="caret"></b></a>
+      <ul class="dropdown-menu">
+          <li>
+            <%= link_to user_path(current_user) do %>
+              <i class="fa fa-fw fa-user"></i> Profile
+            <%end%>
+          </li>
+          <li>
+              <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
+          </li>
+          <li>
+              <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <%= link_to destroy_user_session_path, method: :delete do %>
+              <i class="fa fa-fw fa-power-off"></i> Log Out
+            <% end %>
+          </li>
+      </ul>
+    </li>
+  <% end %>
+</ul>
+<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+<div class="collapse navbar-collapse navbar-ex1-collapse">
+  <ul class="nav navbar-nav side-nav">
+    <li class="<%= active_class(root_path) %>">
+      <a href="/"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+    </li>
+    <li class="<%= active_class(friendships_path) %>">
+      <%= link_to friendships_path do %>
+        <i class="fa fa-fw fa-user"></i> Friends
+      <%end%>
+    </li>
+
+    <li>
+      <a href="javascript:void(0);" data-toggle="collapse" data-target="#chat-user-list"><i class="fa fa-fw fa-file"></i> Chat<i class="fa fa-fw fa-caret-down"></i></a>
+      <ul id="chat-user-list" class="collapse" >
+        <% current_user.friends.each do |friend| %>
+          <li>
+            <%=link_to friend.full_name, "javascript:void(0);", class: "user-for-chat", "data-value"=> friend.id, "data-name" => friend.full_name %>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+    <li>
+  </ul>
+</div>
+
+
+    <!-- /.navbar-collapse -->
+</nav>

@@ -1,0 +1,30 @@
+<!-- <div class="row">
+  <div class="col-md-12 padding-none">
+    <div class="col-md-4 box">
+      <%= image_tag @user.profile_pic.url(:medium), class: 'pic-mid padding-img'%>
+      <%= form_for @user, :html => { :multipart => true } do |f| %>
+        <div class="col-md-6">
+          <%= f.file_field :profile_pic, class: "filestyle profile_pic", 'data-buttonName'=>"btn-primary", 'data-input'=>"false" %>
+        </div>
+        <div class="col-md-6"><%= f.submit "Update", class: "btn btn-success btn-large" %></div>
+      <% end %>
+    </div>
+    <div class="col-md-8">
+      <h3> <%= link_to @user.first_name, "javascript:void(0)", "data-type"=>"text", "data-url" => user_path(current_user), title: 'First Name', class: 'edit_field' %></h3>
+        <h3><%= @user.email %></h3>
+    </div>
+  </div>
+
+<div class="col-md-12">
+  <h3> Post from here </h3>
+  <div class="row">
+    <%= form_for [@user, Post.new], :html => { :multipart => true } do |f| %>
+      <%= f.file_field :image, class: "filestyle profile_pic", 'data-buttonName'=>"btn-primary", 'data-input'=>"false" %>
+      <%= f.text_field :message %>
+      <%= f.submit "Update" %>
+    <% end %>
+  </div>
+</div>
+
+</div>
+ -->

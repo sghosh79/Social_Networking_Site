@@ -1,0 +1,16 @@
+<li class="left clearfix" id="<%= message.id %>">
+  <span class="chat-img pull-left">
+    <%=image_tag current_user.profile_pic.url(:thumb), class: "img-circle img-small", alt: "User Avatar" %>
+  </span>
+  <div class="chat-body clearfix">
+    <div class="header">
+      <strong class="primary-font"><%=current_user.full_name%></strong>
+      <small class="pull-right text-muted">
+        <span ></span>
+      </small>
+    </div>
+    <p>
+      <%=message.content%>
+    </p>
+  </div>
+</li>

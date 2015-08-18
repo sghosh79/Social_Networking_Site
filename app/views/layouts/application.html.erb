@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SocialNetwork</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <%= javascript_include_tag "http://localhost:9292/faye.js" %>
+
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<%= js add_gritter(flash[:notice], :image => :notice, :title => "Pay attention!" ) %>
+<%= js add_gritter(flash[:success], :image => :success, :title => "Message") %>
+<%= js add_gritter(flash[:error], :image => :error, :title => "Pay attention!") %>
+<%= extend_gritter :time => 500 %>
+<div id="wrapper">
+    <!-- Navigation -->
+  <%= render partial: '/shared/navigation' if user_signed_in? %>
+
+  <div id="page-wrapper">
+    <div class="container-fluid">
+      <%= yield %>
+    </div>
+    <!-- /.container-fluid -->
+  </div>
+
+
+    <!-- /#page-wrapper -->
+
+</div>
+<% if user_signed_in? %>
+  <div id="chat-window-container" class="user-chat-window-<%=current_user.id%>", style="display:none;">
+    <%= render partial: '/shared/chat_window'%>
+  </div>
+  <%= subscribe_to "/messages/new-#{current_user.id}" %>
+  <%= subscribe_to "/notification/friend_request-#{current_user.id}" %>
+  <%= subscribe_to "/post/new-#{current_user.id}" %>
+  <%= javascript_tag do %>
+    window.current_user = "<%= current_user.id %>"
+  <% end %>
+  </script>
+<% end %>
+</body>
+</html>
+

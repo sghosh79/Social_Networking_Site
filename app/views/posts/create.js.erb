@@ -1,0 +1,3 @@
+$(".news_feeds").prepend("<%= escape_javascript render(partial: 'shared/feed', locals: {feed: @post}) %>");
+$("#post_message").val("")
+

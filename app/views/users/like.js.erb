@@ -1,0 +1,7 @@
+<% if @like_to.valid? %>
+  $("#like-<%= @like_to.id %>").html("<%= escape_javascript(link_to 'Unlike', unlike_path(type: 'Post', feed_id: @like_to.id), class: 'font-small', remote: true, method: :post )%>")
+  $("#like-<%= @like_to.id %>-count").text(parseInt($("#like-<%= @like_to.id %>-count").text()) + 1 )
+<% else %>
+  alert("You have already like")
+<% end %>  
+

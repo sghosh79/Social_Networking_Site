@@ -1,0 +1,15 @@
+<li class='message-preview'>
+  <a href='#'>
+    <div class='media'>
+      <span class='pull-left'>
+        <%= image_tag current_user.profile_pic.url(:thumb), class: 'media-object', alt: 'User Image' %>
+      </span>
+      <div class='media-body'>
+        <h5 class='media-heading'><strong><%= sender.full_name %></strong></h5>
+        <p class='small text-muted'><i class='fa fa-clock-o'></i> <%= time_ago_in_words(created_at) %> ago</p>
+        <p><button class="btn btn-success btn-mini accept" data-url = "/friendships/accept?friend_id=<%=sender.slug%>" >Accept</button></p>
+      </div>
+    </div>
+  </a>
+</li>
+

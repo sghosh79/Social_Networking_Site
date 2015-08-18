@@ -1,0 +1,34 @@
+$(document).on('ready page:load', function () {
+   $(".chat-window-close").click(function() {
+     $('#chat-window-container').hide();
+   });
+
+  PrivatePub.subscribe("/notification/friend_request-"+current_user, function(data, channel) {
+    $(".notification").addClass("white")
+    $(".notification-box").prepend(data.message)
+  });
+
+  PrivatePub.subscribe("/messages/new-"+current_user, function(data, channel) {
+    $(".user-chat-window-"+current_user).show();
+    if(!$("li#"+data.msg_id).length){
+      $(".chat").append(data.message);
+      $('#message-reciever-name').html(data.reciever_name);
+      $('form#new_message #reciever_id').val(data.reciever_id);
+    }
+    $(".enter-chat-box").val("")
+  });
+
+  PrivatePub.subscribe("/post/new-"+current_user, function(data, channel) {
+    $(".news_feeds").prepend(data.message);
+  });
+
+  $("a.user-for-chat").click(function() {
+     reciever_id = $(this).data('value');
+     reciever_name = $(this).data('name');
+     $('#chat-window-container').show();
+     $('#message-reciever-name').html(reciever_name);
+     $('form#new_message #reciever_id').val(reciever_id);
+     $('ul.chat').html("");
+   });
+
+});

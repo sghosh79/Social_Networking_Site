@@ -1,0 +1,12 @@
+<li class="top-padding-10 white-top-border">
+  <div class="row">
+  <div class='col-md-12'>
+    <div class='col-md-1 padding-none'><%= image_tag comment.user.profile_pic.url(:thumb), class: 'thumb-img' %></div>
+    <div class='col-md-10'>
+      <span class="blue-color"><strong><%= comment.user.full_name %></strong></span>
+      <span><%= comment.message %></span>
+      <p class='small text-muted'><i class='fa fa-clock-o'></i> <%= time_ago_in_words(comment.created_at) %> ago</p>
+    </div>
+  </div>
+</div>
+</li>

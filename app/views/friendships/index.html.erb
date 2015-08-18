@@ -1,0 +1,127 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h3> Your Friends </h3>
+  </div>
+</div>
+<% unless @friendships.blank? %>
+  <div class="row box">
+      <div class="col-lg-12 box-margin-top">
+        <% @friendships.each do |friendship| %>
+          <% friend = friendship.friend %>
+          <div class="col-md-6 add-friend">
+            <div class="col-md-12 box">
+              <div class="col-md-4 set-pull-left pic">
+                <%= image_tag friend.profile_pic.url(:thumb)%>
+              </div>
+              <div class="col-md-6">
+                <div style="height:45px"></div>
+                <strong><%= link_to friend.full_name, friend_profile_path(friend) %></strong>
+              </div>
+              <div class="col-md-2">
+                <div style="height:45px"></div>
+                <%= link_to friendship, :method => :delete, class: "btn btn-danger btn-large" do %>
+                  <i class="icon-white icon-remove"></i> Unfriend
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+  </div>
+<% end %>
+
+<% unless @pending_friendships.blank? %>
+  <div class="row">
+    <div class="col-lg-12">
+      <h2> Sent Friend Requests</h2>
+    </div>
+  </div>
+  <div class="row box">
+      <div class="col-lg-12 box-margin-top">
+        <% @pending_friendships.each do |friendship| %>
+          <% friend = friendship.friend %>
+          <div class="col-md-6 add-friend">
+            <div class="col-md-12 box">
+              <div class="col-md-4 set-pull-left pic">
+                <%= image_tag friend.profile_pic.url(:thumb)%>
+              </div>
+              <div class="col-md-5">
+                <div style="height:45px"></div>
+                <strong><%= link_to friend.full_name, "javascript:void(0)" %></strong>
+              </div>
+              <div class="col-md-3">
+                <div style="height:45px"></div>
+                <%= link_to friendship, :method => :delete, class: "btn btn-primary btn-large" do %>
+                  <i class="icon-white icon-remove"></i> Cancel Request</a>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+  </div>
+<% end %>
+
+<% unless @friends_request.blank? %>
+  <div class="row">
+    <div class="col-lg-12">
+      <h2> Receive Friends Request</h2>
+    </div>
+  </div>
+  <div class="row box">
+      <div class="col-lg-12 box-margin-top">
+        <% @friends_request.each do |fr| %>
+          <% user = fr.user %>
+          <div class="col-md-6 add-friend">
+            <div class="col-md-12 box">
+              <div class="col-md-4 set-pull-left pic">
+                <%= image_tag user.profile_pic.url(:thumb) %>
+              </div>
+              <div class="col-md-5">
+                <div style="height:45px"></div>
+                <strong><%= link_to user.full_name, "javascript:void(0)" %></strong>
+              </div>
+              <div class="col-md-3">
+                <div style="height:45px"></div>
+                <%= link_to accept_friendships_path(:friend_id => user), class: "btn btn-primary btn-large" do %>
+                  <i class="icon-white icon-remove"></i> Accept
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+  </div>
+<% end %>  
+
+<% unless @users.blank? %>
+  <div class="row">
+    <div class="col-lg-12">
+      <h4> Suggested Friends </h4>
+    </div>
+  </div>
+  <div class="row box">
+      <div class="col-lg-12 box-margin-top">
+        <% @users.each do |user| %>
+          <div class="col-md-6 add-friend">
+            <div class="col-md-12 box">
+              <div class="col-md-4 set-pull-left pic">
+                <%= image_tag user.profile_pic.url(:thumb)%>
+              </div>
+              <div class="col-md-5">
+                <div style="height:45px"></div>
+                <strong><%= link_to user.full_name, "javascript:void(0);" %></strong>
+              </div>
+              <div class="col-md-3">
+                <div style="height:45px"></div>
+                <%= link_to friendships_path(:friend_id => user), :method => :post, class: "btn btn-primary btn-large" do %>
+                  <i class="icon-white icon-remove"></i> Add Friend
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+  </div>
+<% end %>
+

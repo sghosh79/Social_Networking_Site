@@ -1,0 +1,67 @@
+<% user = feed.user %>
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6 add-friend item">
+    <div class="col-md-12 white-box">
+      <div class='row top-space'>
+        <div class="col-md-2"> 
+          <%=image_tag user.profile_pic.url, height: "50px"%> 
+        </div>
+        <div class="col-md-10"> 
+          <div><b><%=user.full_name%></b></div>
+          <span class="font-small">
+             <p class='text-muted'><i class='fa fa-clock-o'></i> <%= time_ago_in_words(feed.created_at) %> ago</p>
+          </span>
+        </div>
+      </div>
+      <% if feed.message.present? %>
+        <div class='row top-space'>
+          <div class="col-md-12">
+            <%= auto_link(feed.message) %>
+          </div>
+        </div>
+      <% end %>
+      <% if feed.image.present? %>
+        <div class='row top-space'>
+          <div class="col-md-12">
+            <%=image_tag feed.image.url, class: 'post-img' %>
+          </div>
+        </div>
+      <% end %>
+      <div class='row top-space grey-color'>
+        <div class="col-md-6" sytle="background-color:'#ccced3'">
+          <span id="like-<%= feed.id %>">
+            <% unless current_user.is_like?(feed) %>
+              <%=link_to "Like", like_path(type: 'Post', feed_id: feed.id), class: "font-small", remote: true, method: :post %>
+            <% else %>
+              <%=link_to "Unlike", unlike_path(type: 'Post', feed_id: feed.id), class: "font-small", remote: true, method: :post %>
+            <% end %>
+          </span>
+          <span id="comment-<%= feed.id %>">
+            <%=link_to "Comment", "#", class: "font-small"%>
+          </span>
+          <span id="share-<%= feed.id %>">
+            <%=link_to "Share", "#", class: "font-small"%>
+          </span>
+        </div>
+        <div class="col-md-6" sytle="background-color:'#ccced3'">
+          <span> <i class="fa fa-thumbs-o-up"></i><span id="like-<%= feed.id %>-count"> <%= feed.likes.count %></span> </span>
+        </div>
+      </div>
+
+      <!-- Comments -->
+    <div class="col-md-12" style="background-color: #F6F7F8;">
+      <ul id="comment-<%=feed.id%>-message" class="comment-list">
+        <%= render partial: 'shared/comment', collection: feed.comments %>
+      </ul>
+      <%= form_for(Comment.new, url: comment_path(feed_id: feed.id), remote: true) do |f| %>
+        <%= f.text_area :message, class: 'auto-grow fixed_text_area top-space', rows: "3", cols: "54", placeholder: 'What about this post?' %>
+        <%= f.submit "Comment", class: 'btn btn-small btn-primary pull-right comment-btn' %>
+      <% end %>
+    </div>
+      <!-- End Comments -->
+
+    </div>
+  </div>
+  <div class="col-md-3"></div>
+</div>
